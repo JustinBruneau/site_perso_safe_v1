@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloc Notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        
+        <h1>Bloc Notes</h1>
+        <a href="../index.html" class="btn-retour">Retour</a>
+        <!-- Bouton "Retour" -->
+        
+        
+        <!-- Formulaire pour créer une nouvelle note -->
+        <form id="new-note-form">
+            <p class="titre1">Titre de la Note :</p>
+            <input type="text" id="title" name="title" placeholder="Titre" required><br>
+            <p class="titre1">Contenu de la Note :</p>
+            <textarea id="content" name="content" placeholder="Contenu" required></textarea><br><br>
+            <button type="submit">Créer une nouvelle note</button>
+            
+        </form>
+        
+
+        <!-- Ajout d'une balise div pour afficher les notes -->
+        <div id="notes-container" class="notes-list"></div>
+    </div>
+
+    <!-- Ajout du script JavaScript -->
+    <script>
+        // Fonction pour charger et afficher les notes
+        function loadNotes() {
+            var notesContainer = document.getElementById("notes-container");
+
+            // Faire une requête AJAX pour récupérer les notes
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_notes.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var notes = JSON.parse(xhr.responseText);
+                        // Efface le contenu précédent du conteneur de notes
+                        notesContainer.innerHTML = "";
+                        // Boucler à travers les notes pour les afficher avec des boutons "Modifier" et "Supprimer"
+                        notes.forEach(function(note) {
+                            var noteElement = document.createElement("div");
+                            noteElement.classList.add("note-item");
+                            noteElement.innerHTML = "<strong>" + note.title + "</strong><br>" + note.content;
+                            
+                            var editButton = document.createElement("button");
+                            editButton.textContent = "Modifier";
+                            editButton.addEventListener("click", function() {
+                                // Rediriger vers la page d'édition avec l'ID de la note
+                                window.location.href = "edit_note.php?id=" + note.id;
+                            });
+                            noteElement.appendChild(editButton);
+
+                            var deleteButton = document.createElement("button");
+                            deleteButton.textContent = "Supprimer";
+                            deleteButton.addEventListener("click", function() {
+                                // Demande de confirmation avant la suppression de la note
+                                if (confirm("Êtes-vous sûr de vouloir supprimer cette note ?")) {
+                                    // Effectue une requête AJAX pour supprimer la note
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", "delete_note.php", true);
+                                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                                            if (xhr.status === 200) {
+                                                // Si la suppression a réussi, actualise la liste des notes
+                                                loadNotes();
+                                            } else {
+                                                console.error("Échec de la requête : " + xhr.status);
+                                            }
+                                        }
+                                    };
+                                    xhr.send("id=" + note.id);
+                                }
+                            });
+                            noteElement.appendChild(deleteButton);
+                            
+                            notesContainer.appendChild(noteElement);
+                        });
+                    } else {
+                        console.error("Échec de la requête : " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Appeler la fonction pour charger et afficher les notes lorsque la page est chargée
+        document.addEventListener("DOMContentLoaded", loadNotes);
+
+        // Gérer la soumission du formulaire pour créer une nouvelle note
+        document.getElementById("new-note-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+            var formData = new FormData(this); // Récupère les données du formulaire
+            var xhr = new XMLHttpRequest();
+
+            // Envoie les données du formulaire via une requête POST à save_note.php
+            xhr.open("POST", "save_note.php", true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Recharge les notes après avoir créé une nouvelle note
+                    loadNotes();
+                    // Réinitialise le formulaire
+                    document.getElementById("new-note-form").reset();
+                } else {
+                    console.error("Échec de la requête : " + xhr.status);
+                }
+            };
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>
