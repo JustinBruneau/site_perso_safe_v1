@@ -41,12 +41,12 @@ h1 {
 }
 
 .btn:hover {
-    background-color: #f4511e;
+    background-color: #ff6f42;
     transform: translateY(-3px);
 }
 
 .btn:active {
-    background-color: #f4511e;
+    background-color: #ff6f42;
     transform: translateY(1px);
     box-shadow: 0 3px 5px rgba(0, 63, 127, 0.2);
 }
