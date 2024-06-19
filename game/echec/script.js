@@ -134,11 +134,12 @@ function movePiece(fromRow, fromCol, toRow, toCol) {
 }
 
 function capturePiece(piece) {
+    const capturedPiece = pieces[piece.toLowerCase()];
     if (currentPlayer === 'white') {
-        whiteCapturedPieces.push(pieces[piece.toLowerCase()]);
+        whiteCapturedPieces.push(capturedPiece);
         updateCapturedList('white');
     } else {
-        blackCapturedPieces.push(pieces[piece.toLowerCase()]);
+        blackCapturedPieces.push(capturedPiece);
         updateCapturedList('black');
     }
 }
