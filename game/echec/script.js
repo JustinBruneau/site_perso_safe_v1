@@ -135,10 +135,10 @@ function movePiece(fromRow, fromCol, toRow, toCol) {
 
 function capturePiece(piece) {
     if (currentPlayer === 'white') {
-        whiteCapturedPieces.push(piece);
+        whiteCapturedPieces.push(pieces[piece.toLowerCase()]);
         updateCapturedList('white');
     } else {
-        blackCapturedPieces.push(piece);
+        blackCapturedPieces.push(pieces[piece.toLowerCase()]);
         updateCapturedList('black');
     }
 }
@@ -146,8 +146,8 @@ function capturePiece(piece) {
 function updateCapturedList(player) {
     const capturedList = player === 'white' ? whiteCapturedList : blackCapturedList;
     capturedList.innerHTML = '';
-    const pieces = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
-    pieces.forEach(piece => {
+    const piecesList = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
+    piecesList.forEach(piece => {
         const li = document.createElement('li');
         li.textContent = piece;
         capturedList.appendChild(li);

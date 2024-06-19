@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +9,20 @@
 <body>
     <div id="game-container">
         <h1>Jeu d'Échecs</h1>
-        <div id="chess-board"></div>
-        <div id="status"></div>
-        <button id="restart-button">Recommencer</button>
-        <div class="captured-list">
-            <h2>Pièces capturées par les Blancs</h2>
-            <ul id="white-captured-list"></ul>
+        <div class="game-wrapper">
+            <div id="chess-board"></div>
+            <div id="status"></div>
+            <button id="restart-button">Recommencer</button>
         </div>
-        <div class="captured-list">
-            <h2>Pièces capturées par les Noirs</h2>
-            <ul id="black-captured-list"></ul>
+        <div class="captured-wrapper">
+            <div class="captured-list">
+                <h2>Pièces capturées par les Blancs</h2>
+                <ul id="white-captured-list"></ul>
+            </div>
+            <div class="captured-list">
+                <h2>Pièces capturées par les Noirs</h2>
+                <ul id="black-captured-list"></ul>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
