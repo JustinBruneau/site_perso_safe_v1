@@ -146,30 +146,47 @@ function capturePiece(piece) {
 
 function updateCapturedList(player) {
     const capturedList = player === 'white' ? whiteCapturedList : blackCapturedList;
-    capturedList.innerHTML = '';
-    const piecesList = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
-    piecesList.forEach(piece => {
-        const li = document.createElement('li');
-        li.textContent = piece;
-        capturedList.appendChild(li);
+    capturedList.innerHTML = ''; // Clear previous list
+
+    const capturedPieces = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
+
+    capturedPieces.forEach(piece => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<span>${piece}</span>`;
+        capturedList.appendChild(listItem);
+    });
+
+    // Add strike-through style to captured pieces
+    capturedPieces.forEach((piece, index) => {
+        if (index < capturedPieces.length - 1) {
+            capturedList.children[index].classList.add('strikethrough');
+        }
     });
 }
 
-function switchPlayer() {
-    currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
-    statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'blanc' : 'noir'}`;
+function handleCellClick(event) {
+    const cell = event.target;
+    const row = parseInt(cell.getAttribute('data-row'));
+    const col = parseInt(cell.getAttribute('data-col'));
+    if (selectedCell) {
+        const fromRow = parseInt(selectedCell.getAttribute('data-row'));
+        const fromCol = parseInt(selectedCell.getAttribute('data-col'));
+        if (isValidMove(fromRow, fromCol, row, col)) {
+            movePiece(fromRow, fromCol, row, col);
+            switchPlayer();
+        }
+        selectedCell.classList.remove('selected');
+        selectedCell = null;
+    } else {
+        if (board[row][col] && isPlayerPiece(board[row][col], currentPlayer)) {
+            selectedCell = cell;
+            selectedCell.classList.add('selected');
+        }
+    }
 }
 
-function handleRestartGame() {
-    initializeBoard();
-    currentPlayer = 'white';
-    whiteCapturedPieces = [];
-    blackCapturedPieces = [];
-    updateCapturedList('white');
-    updateCapturedList('black');
-    statusDisplay.textContent = `C'est au tour de blanc`;
+function isPlayerPiece(piece, player) {
+    return (player === 'white' && piece === piece.toUpperCase()) || (player === 'black' && piece === piece.toLowerCase());
 }
 
-initializeBoard();
-statusDisplay.textContent = `C'est au tour de blanc`;
-restartButton.addEventListener('click', handleRestartGame);
+// Rest of the functions remain unchanged

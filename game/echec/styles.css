@@ -82,3 +82,30 @@ body {
     font-size: 1.5em;
     margin-bottom: 5px;
 }
+
+.captured-list {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.captured-list h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.captured-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.captured-list ul li {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.captured-list ul li.strikethrough {
+    text-decoration: line-through;
+    color: #999;
+}
