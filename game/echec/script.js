@@ -165,6 +165,7 @@ function stopTimer() {
 }
 
 function handleRestartGame() {
+    stopTimer(); // Arrêter le chronomètre avant de réinitialiser
     clearInterval(timerInterval);
     initializeBoard();
     whiteTurns = 0;
