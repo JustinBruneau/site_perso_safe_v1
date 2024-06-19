@@ -14,7 +14,7 @@ body {
     text-align: center;
 }
 
-.button2 {
+.button {
     padding: 10px 20px;
     font-size: 18px;
     background-color: #f4511e;
@@ -27,7 +27,7 @@ body {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.button2:hover {
+.button:hover {
     background-color: #ff6f42;
 }
 
@@ -61,3 +61,22 @@ body {
     left: 0;
 }
 
+.button10 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f4511e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button10:hover {
+    background-color: #ff6f42;
+  }
