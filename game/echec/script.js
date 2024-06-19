@@ -88,11 +88,17 @@ function isValidMove(fromRow, fromCol, toRow, toCol) {
 
     switch (piece) {
         case 'p':
-            if (fromCol === toCol && board[toRow][toCol] === '') {
-                if (toRow === fromRow + direction) return true;
-                if ((isWhitePiece && fromRow === 6 || !isWhitePiece && fromRow === 1) && toRow === fromRow + 2 * direction && board[fromRow + direction][fromCol] === '') return true;
+            if (fromCol === toCol) {
+                if (toRow === fromRow + direction && board[toRow][toCol] === '') {
+                    return true;
+                }
+                if (Math.abs(fromRow - toRow) === 2 && (isWhitePiece && fromRow === 6 || !isWhitePiece && fromRow === 1) && board[fromRow + direction][fromCol] === '' && board[toRow][toCol] === '') {
+                    return true;
+                }
             }
-            if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + direction && board[toRow][toCol] !== '' && !isPlayerPiece(board[toRow][toCol], currentPlayer)) return true;
+            if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + direction && targetPiece && !isPlayerPiece(targetPiece, currentPlayer)) {
+                return true;
+            }
             break;
         case 'r':
             if (fromRow === toRow || fromCol === toCol) return !isPathBlocked(fromRow, fromCol, toRow, toCol);
