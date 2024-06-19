@@ -20,6 +20,8 @@ body {
     background-color: #004080;
     padding: 10px;
     border-radius: 10px;
+    position: relative;
+    height: 430px; /* Ajusté pour contenir les animations */
 }
 
 .cell {
@@ -31,6 +33,9 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: top 0.5s ease;
 }
 
 .red {
