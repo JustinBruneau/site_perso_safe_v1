@@ -3,58 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'accueil stylée</title>
+    <title>Boutons</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Pour empêcher le défilement vertical */
-        }
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #667eea, #764ba2, #6B8DD6, #8E37D7);
-            background-size: 600% 600%;
-            animation: gradientBG 15s ease infinite;
-        }
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: #fff;
-            margin-top: 20vh;
-        }
-        h1 {
-            font-size: 3em;
-        }
-        p {
-            font-size: 1.5em;
-            margin-top: 0.5em;
-        }
-    </style>
+
 </head>
 <body>
-    <div class="background"></div>
-    <div class="content">
-        <h1>Bienvenue sur notre site !</h1>
-        <p>Découvrez notre contenu incroyable.</p>
+    <div class="container">
+        <button class="button" onclick="window.location.href='./kikesa/index.html'">KIKESA</button>
+        <button class="button" onclick="window.location.href='./ai/index.html'">AI</button>
+        <button class="button" onclick="window.location.href='./ipv4/index.html'">MON IP</button>
+        <button class="button" onclick="window.location.href='./hydromel/index.html'">HYDROMEL</button>
+        <button class="button" onclick="window.location.href='./cerise/index.html'">CERISE</button>
+        <button class="button" onclick="window.location.href='./sites/index.html'">SITES</button>
+        <button class="button" onclick="window.location.href='./game/index.html'">GAMES</button>
     </div>
+   
 </body>
 </html>
