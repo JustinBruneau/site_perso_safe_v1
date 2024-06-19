@@ -10,12 +10,27 @@ body {
 
 #game-container {
     text-align: center;
+    margin-top: 20px;
 }
 
-.game-wrapper {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 20px;
+#captured-lists {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#captured-lists ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 10px;
+}
+
+#captured-lists ul li {
+    margin-bottom: 5px;
+}
+
+#captured-lists ul li.strikethrough {
+    text-decoration: line-through;
 }
 
 #chess-board {
@@ -23,6 +38,7 @@ body {
     grid-template-columns: repeat(8, 60px);
     grid-template-rows: repeat(8, 60px);
     border: 2px solid #333;
+    margin-bottom: 10px;
 }
 
 .cell {
@@ -50,62 +66,10 @@ body {
 
 #status {
     font-size: 1.5em;
-    margin: 20px 0;
+    margin-bottom: 10px;
 }
 
 #restart-button {
     font-size: 1em;
     padding: 10px 20px;
-    margin-top: 20px;
-}
-
-.captured-wrapper {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.captured-list {
-    margin-bottom: 20px;
-}
-
-.captured-list h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.captured-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.captured-list ul li {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.captured-list {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.captured-list h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.captured-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.captured-list ul li {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.captured-list ul li.strikethrough {
-    text-decoration: line-through;
-    color: #999;
 }

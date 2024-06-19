@@ -9,6 +9,8 @@ let selectedCell = null;
 let currentPlayer = 'white';
 let whiteCapturedPieces = [];
 let blackCapturedPieces = [];
+let whiteKingPosition = { row: 7, col: 4 };
+let blackKingPosition = { row: 0, col: 4 };
 
 const pieces = {
     'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
@@ -56,6 +58,19 @@ function handleCellClick(event) {
         const fromCol = parseInt(selectedCell.getAttribute('data-col'));
         if (isValidMove(fromRow, fromCol, row, col)) {
             movePiece(fromRow, fromCol, row, col);
+
+            // Check for check and checkmate
+            if (isCheck(currentPlayer)) {
+                if (isCheckmate(currentPlayer)) {
+                    statusDisplay.textContent = `Échec et mat. ${currentPlayer === 'white' ? 'Noir' : 'Blanc'} a gagné !`;
+                    return;
+                } else {
+                    statusDisplay.textContent = `Échec pour ${currentPlayer === 'white' ? 'Blanc' : 'Noir'}`;
+                }
+            } else {
+                statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'Blanc' : 'Noir'}`;
+            }
+
             switchPlayer();
         }
         selectedCell.classList.remove('selected');
@@ -123,58 +138,18 @@ function isPathBlocked(fromRow, fromCol, toRow, toCol) {
     return false;
 }
 
-function movePiece(fromRow, fromCol, toRow, toCol) {
-    const piece = board[toRow][toCol];
-    if (piece !== '') {
-        capturePiece(piece);
-    }
-    board[toRow][toCol] = board[fromRow][fromCol];
-    board[fromRow][fromCol] = '';
-    renderBoard();
-}
-
-function capturePiece(piece) {
-    const capturedPiece = pieces[piece.toLowerCase()];
-    if (currentPlayer === 'white') {
-        whiteCapturedPieces.push(capturedPiece);
-        updateCapturedList('white');
-    } else {
-        blackCapturedPieces.push(capturedPiece);
-        updateCapturedList('black');
-    }
-}
-
-function updateCapturedList(player) {
-    const capturedList = player === 'white' ? whiteCapturedList : blackCapturedList;
-    capturedList.innerHTML = ''; // Clear previous list
-
-    const capturedPieces = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
-
-    capturedPieces.forEach(piece => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `<span>${piece}</span>`;
-        capturedList.appendChild(listItem);
-    });
-
-    // Add strike-through style to captured pieces
-    capturedPieces.forEach((piece, index) => {
-        if (index < capturedPieces.length - 1) {
-            capturedList.children[index].classList.add('strikethrough');
-        }
-    });
-}
-
-function switchPlayer() {
-    currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
-    statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'blanc' : 'noir'}`;
-}
-
 function handleRestartGame() {
     initializeBoard();
     currentPlayer = 'white';
-    statusDisplay.textContent = `C'est au tour de blanc`;
+    whiteCapturedPieces = [];
+    blackCapturedPieces = [];
+    whiteKingPosition = { row: 7, col: 4 };
+    blackKingPosition = { row: 0, col: 4 };
+    statusDisplay.textContent = `C'est au tour de Blanc`;
+    renderCapturedPieces();
 }
 
+// Initialisation du jeu au chargement de la page
 initializeBoard();
-statusDisplay.textContent = `C'est au tour de blanc`;
+statusDisplay.textContent = `C'est au tour de Blanc`;
 restartButton.addEventListener('click', handleRestartGame);
