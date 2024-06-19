@@ -5,6 +5,11 @@ let board = [];
 let selectedCell = null;
 let currentPlayer = 'white';
 
+const pieces = {
+    'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+    'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+};
+
 // Initialisation du tableau de jeu
 function initializeBoard() {
     const initialBoard = [
@@ -30,7 +35,7 @@ function renderBoard() {
             cell.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
             cell.setAttribute('data-row', row);
             cell.setAttribute('data-col', col);
-            cell.textContent = board[row][col];
+            cell.textContent = pieces[board[row][col]] || '';
             cell.addEventListener('click', handleCellClick);
             chessBoard.appendChild(cell);
         }
