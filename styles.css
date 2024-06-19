@@ -1,3 +1,9 @@
+@keyframes backgroundAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -8,16 +14,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: backgroundAnimation 20s infinite;
 }
+
 
 .container {
     text-align: center;
+    z-index: 1; /* Assure que le contenu est au-dessus de l'animation de fond */
 }
 
-.button {
+.button, .button-hide, .button-hide2 {
     padding: 10px 20px;
     font-size: 18px;
-    background-color: #f4511e;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -27,36 +35,17 @@ body {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
+.button {
+    background-color: #f4511e;
+}
+
 .button:hover {
     background-color: #ff6f42;
 }
 
-.button-hide {
-    padding: 10px 20px;
-    font-size: 18px;
+.button-hide, .button-hide2 {
     background-color: #ffffff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s ease;
     position: fixed;
     top: 0;
-    left: 0;
-}
-
-.button-hide2 {
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #ffffff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s ease;
-    position: fixed;
-    top: 1;
     left: 0;
 }
