@@ -32,8 +32,7 @@ function createBoard() {
 function handleCellClick(event) {
     if (!gameActive) return;
 
-    const clickedCell = event.target;
-    const column = parseInt(clickedCell.getAttribute('data-column'));
+    const column = parseInt(event.target.getAttribute('data-column'));
 
     // Trouver la première ligne vide dans cette colonne
     for (let r = rows - 1; r >= 0; r--) {
@@ -99,3 +98,6 @@ function handleRestartGame() {
 createBoard();
 statusDisplay.textContent = `C'est au tour de rouge`;
 restartButton.addEventListener('click', handleRestartGame);
+
+// Ajout des écouteurs d'événements aux cellules
+gameBoard.addEventListener('click', handleCellClick);
