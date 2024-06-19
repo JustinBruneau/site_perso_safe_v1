@@ -10,6 +10,7 @@ body {
 
 #game-container {
     text-align: center;
+    margin-top: 20px; /* Ajout de marge pour séparer les éléments */
 }
 
 #chess-board {
@@ -17,6 +18,7 @@ body {
     grid-template-columns: repeat(8, 60px);
     grid-template-rows: repeat(8, 60px);
     border: 2px solid #333;
+    margin-bottom: 20px; /* Ajout de marge en bas du tableau */
 }
 
 .cell {
@@ -44,10 +46,30 @@ body {
 
 #status {
     font-size: 1.5em;
-    margin: 20px;
+    margin: 20px 0;
 }
 
 #restart-button {
     font-size: 1em;
     padding: 10px 20px;
+    margin-bottom: 20px; /* Ajout de marge en bas du bouton */
+}
+
+.captured-list {
+    display: inline-block;
+    margin: 0 10px;
+    vertical-align: top;
+}
+
+.captured-list h2 {
+    font-size: 1.2em;
+}
+
+.captured-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.captured-list ul li {
+    margin-bottom: 5px;
 }
