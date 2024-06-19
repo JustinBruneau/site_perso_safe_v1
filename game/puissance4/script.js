@@ -24,6 +24,7 @@ function createBoard() {
             cell.classList.add('cell');
             cell.setAttribute('data-row', r);
             cell.setAttribute('data-column', c);
+            cell.addEventListener('click', handleCellClick);
             gameBoard.appendChild(cell);
         }
     }
@@ -31,7 +32,7 @@ function createBoard() {
 
 function handleCellClick(event) {
     if (!gameActive) return;
-
+    
     const clickedCell = event.target;
     const column = parseInt(clickedCell.getAttribute('data-column'));
 
@@ -39,18 +40,8 @@ function handleCellClick(event) {
     for (let r = rows - 1; r >= 0; r--) {
         if (board[r][column] === '') {
             board[r][column] = currentPlayer;
-            const cell = document.createElement('div');
-            cell.classList.add('cell', currentPlayer);
-            cell.style.top = `${-60 * (r + 1)}px`; // Positionner au-dessus de la grille
-            cell.setAttribute('data-row', r);
-            cell.setAttribute('data-column', column);
-            gameBoard.appendChild(cell);
-
-            // Délayer l'animation pour simuler la chute
-            setTimeout(() => {
-                cell.style.top = `${60 * r}px`;
-            }, 10);
-
+            const cell = document.querySelector(`.cell[data-row='${r}'][data-column='${column}']`);
+            cell.classList.add(currentPlayer);
             if (checkWin(r, column)) {
                 statusDisplay.textContent = `Le joueur ${currentPlayer === 'red' ? 'rouge' : 'jaune'} a gagné!`;
                 gameActive = false;
