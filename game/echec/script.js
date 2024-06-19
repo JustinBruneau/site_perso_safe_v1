@@ -1,6 +1,5 @@
 const chessBoard = document.getElementById('chess-board');
 const turnCounterDisplay = document.getElementById('turn-counter');
-const timerDisplay = document.getElementById('timer');
 const restartButton = document.getElementById('restart-button');
 const whiteCapturedPiecesList = document.getElementById('white-captured-pieces');
 const blackCapturedPiecesList = document.getElementById('black-captured-pieces');
@@ -9,9 +8,6 @@ let selectedCell = null;
 let currentPlayer = 'white';
 let whiteTurns = 0;
 let blackTurns = 0;
-let timerInterval;
-let seconds = 0;
-let minutes = 0;
 let whiteCapturedPieces = [];
 let blackCapturedPieces = [];
 
@@ -168,34 +164,13 @@ function switchPlayer() {
         blackTurns++;
     }
     updateTurnCounter();
-    startTimer();
 }
 
 function updateTurnCounter() {
     turnCounterDisplay.textContent = `Blanc: ${whiteTurns} tours | Noir: ${blackTurns} tours`;
 }
 
-function startTimer() {
-    clearInterval(timerInterval);
-    seconds = 0;
-    minutes = 0;
-    timerInterval = setInterval(() => {
-        seconds++;
-        if (seconds === 60) {
-            seconds = 0;
-            minutes++;
-        }
-        timerDisplay.textContent = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-}
-
 function handleRestartGame() {
-    stopTimer();
-    clearInterval(timerInterval);
     initializeBoard();
     whiteTurns = 0;
     blackTurns = 0;
@@ -204,13 +179,10 @@ function handleRestartGame() {
     updateTurnCounter();
     updateCapturedPiecesList('white');
     updateCapturedPiecesList('black');
-    timerDisplay.textContent = '00:00';
-    currentPlayer = 'white';
 }
 
 initializeBoard();
 updateTurnCounter();
 updateCapturedPiecesList('white');
 updateCapturedPiecesList('black');
-timerDisplay.textContent = '00:00';
 restartButton.addEventListener('click', handleRestartGame);
