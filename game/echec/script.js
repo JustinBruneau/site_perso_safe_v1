@@ -164,29 +164,17 @@ function updateCapturedList(player) {
     });
 }
 
-function handleCellClick(event) {
-    const cell = event.target;
-    const row = parseInt(cell.getAttribute('data-row'));
-    const col = parseInt(cell.getAttribute('data-col'));
-    if (selectedCell) {
-        const fromRow = parseInt(selectedCell.getAttribute('data-row'));
-        const fromCol = parseInt(selectedCell.getAttribute('data-col'));
-        if (isValidMove(fromRow, fromCol, row, col)) {
-            movePiece(fromRow, fromCol, row, col);
-            switchPlayer();
-        }
-        selectedCell.classList.remove('selected');
-        selectedCell = null;
-    } else {
-        if (board[row][col] && isPlayerPiece(board[row][col], currentPlayer)) {
-            selectedCell = cell;
-            selectedCell.classList.add('selected');
-        }
-    }
+function switchPlayer() {
+    currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
+    statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'blanc' : 'noir'}`;
 }
 
-function isPlayerPiece(piece, player) {
-    return (player === 'white' && piece === piece.toUpperCase()) || (player === 'black' && piece === piece.toLowerCase());
+function handleRestartGame() {
+    initializeBoard();
+    currentPlayer = 'white';
+    statusDisplay.textContent = `C'est au tour de blanc`;
 }
 
-// Rest of the functions remain unchanged
+initializeBoard();
+statusDisplay.textContent = `C'est au tour de blanc`;
+restartButton.addEventListener('click', handleRestartGame);
