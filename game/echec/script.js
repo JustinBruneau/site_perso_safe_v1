@@ -1,9 +1,14 @@
 const chessBoard = document.getElementById('chess-board');
 const statusDisplay = document.getElementById('status');
 const restartButton = document.getElementById('restart-button');
+const whiteCapturedList = document.getElementById('white-captured-list');
+const blackCapturedList = document.getElementById('black-captured-list');
+
 let board = [];
 let selectedCell = null;
 let currentPlayer = 'white';
+let whiteCapturedPieces = [];
+let blackCapturedPieces = [];
 
 const pieces = {
     'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
@@ -119,9 +124,34 @@ function isPathBlocked(fromRow, fromCol, toRow, toCol) {
 }
 
 function movePiece(fromRow, fromCol, toRow, toCol) {
+    const piece = board[toRow][toCol];
+    if (piece !== '') {
+        capturePiece(piece);
+    }
     board[toRow][toCol] = board[fromRow][fromCol];
     board[fromRow][fromCol] = '';
     renderBoard();
+}
+
+function capturePiece(piece) {
+    if (currentPlayer === 'white') {
+        whiteCapturedPieces.push(piece);
+        updateCapturedList('white');
+    } else {
+        blackCapturedPieces.push(piece);
+        updateCapturedList('black');
+    }
+}
+
+function updateCapturedList(player) {
+    const capturedList = player === 'white' ? whiteCapturedList : blackCapturedList;
+    capturedList.innerHTML = '';
+    const pieces = player === 'white' ? whiteCapturedPieces : blackCapturedPieces;
+    pieces.forEach(piece => {
+        const li = document.createElement('li');
+        li.textContent = piece;
+        capturedList.appendChild(li);
+    });
 }
 
 function switchPlayer() {
@@ -132,6 +162,10 @@ function switchPlayer() {
 function handleRestartGame() {
     initializeBoard();
     currentPlayer = 'white';
+    whiteCapturedPieces = [];
+    blackCapturedPieces = [];
+    updateCapturedList('white');
+    updateCapturedList('black');
     statusDisplay.textContent = `C'est au tour de blanc`;
 }
 
