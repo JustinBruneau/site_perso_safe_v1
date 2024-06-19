@@ -1,9 +1,15 @@
 const chessBoard = document.getElementById('chess-board');
-const statusDisplay = document.getElementById('status');
+const turnCounterDisplay = document.getElementById('turn-counter');
+const timerDisplay = document.getElementById('timer');
 const restartButton = document.getElementById('restart-button');
 let board = [];
 let selectedCell = null;
 let currentPlayer = 'white';
+let whiteTurns = 0;
+let blackTurns = 0;
+let timerInterval;
+let seconds = 0;
+let minutes = 0;
 
 const pieces = {
     'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
@@ -52,6 +58,7 @@ function handleCellClick(event) {
         if (isValidMove(fromRow, fromCol, row, col)) {
             movePiece(fromRow, fromCol, row, col);
             switchPlayer();
+            updateTurnCounter();
         }
         selectedCell.classList.remove('selected');
         selectedCell = null;
@@ -126,15 +133,50 @@ function movePiece(fromRow, fromCol, toRow, toCol) {
 
 function switchPlayer() {
     currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
-    statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'blanc' : 'noir'}`;
+    if (currentPlayer === 'white') {
+        whiteTurns++;
+    } else {
+        blackTurns++;
+    }
+    updateTurnCounter();
+    startTimer();
+}
+
+function updateTurnCounter() {
+    turnCounterDisplay.textContent = `Blanc: ${whiteTurns} tours | Noir: ${blackTurns} tours`;
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    seconds = 0;
+    minutes = 0;
+    timerInterval = setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        }
+        timerDisplay.textContent = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
 }
 
 function handleRestartGame() {
+    clearInterval(timerInterval);
     initializeBoard();
+    whiteTurns = 0;
+    blackTurns = 0;
+    updateTurnCounter();
+    timerDisplay.textContent = '00:00';
     currentPlayer = 'white';
     statusDisplay.textContent = `C'est au tour de blanc`;
 }
 
 initializeBoard();
+updateTurnCounter();
+timerDisplay.textContent = '00:00';
 statusDisplay.textContent = `C'est au tour de blanc`;
 restartButton.addEventListener('click', handleRestartGame);
