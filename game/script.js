@@ -1,44 +1,78 @@
-const startButton = document.getElementById('start-button');
-const gameArea = document.getElementById('game-area');
-const target = document.getElementById('target');
-const scoreSpan = document.getElementById('score');
-let score = 0;
-let gameActive = false;
+const cells = document.querySelectorAll('.cell');
+const statusDisplay = document.getElementById('status');
+const restartButton = document.getElementById('restart-button');
+let currentPlayer = 'X';
+let gameState = ['', '', '', '', '', '', '', '', ''];
+let gameActive = true;
 
-startButton.addEventListener('click', startGame);
-target.addEventListener('click', hitTarget);
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
-function startGame() {
-    score = 0;
+function handleCellPlayed(clickedCell, clickedCellIndex) {
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.textContent = currentPlayer;
+}
+
+function handlePlayerChange() {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    statusDisplay.textContent = `C'est au tour de ${currentPlayer}`;
+}
+
+function handleResultValidation() {
+    let roundWon = false;
+    for (let i = 0; i < winningConditions.length; i++) {
+        const [a, b, c] = winningConditions[i];
+        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+            roundWon = true;
+            break;
+        }
+    }
+
+    if (roundWon) {
+        statusDisplay.textContent = `Le joueur ${currentPlayer} a gagné!`;
+        gameActive = false;
+        return;
+    }
+
+    const roundDraw = !gameState.includes('');
+    if (roundDraw) {
+        statusDisplay.textContent = 'Match nul!';
+        gameActive = false;
+        return;
+    }
+
+    handlePlayerChange();
+}
+
+function handleCellClick(event) {
+    const clickedCell = event.target;
+    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+    if (gameState[clickedCellIndex] !== '' || !gameActive) {
+        return;
+    }
+
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
+}
+
+function handleRestartGame() {
     gameActive = true;
-    scoreSpan.textContent = score;
-    startButton.style.display = 'none';
-    target.style.display = 'block';
-    moveTarget();
+    currentPlayer = 'X';
+    gameState = ['', '', '', '', '', '', '', '', ''];
+    statusDisplay.textContent = `C'est au tour de ${currentPlayer}`;
+    cells.forEach(cell => cell.textContent = '');
 }
 
-function endGame() {
-    gameActive = false;
-    startButton.style.display = 'block';
-    target.style.display = 'none';
-    alert('Jeu terminé! Votre score est: ' + score);
-}
+cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+restartButton.addEventListener('click', handleRestartGame);
 
-function moveTarget() {
-    if (!gameActive) return;
-
-    const x = Math.random() * (gameArea.clientWidth - target.offsetWidth);
-    const y = Math.random() * (gameArea.clientHeight - target.offsetHeight);
-
-    target.style.left = `${x}px`;
-    target.style.top = `${y}px`;
-
-    setTimeout(moveTarget, 1000);
-}
-
-function hitTarget() {
-    if (!gameActive) return;
-    score++;
-    scoreSpan.textContent = score;
-    moveTarget();
-}
+statusDisplay.textContent = `C'est au tour de ${currentPlayer}`;
