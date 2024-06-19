@@ -1,155 +1,67 @@
-const chessBoard = document.getElementById('chess-board');
-const statusDisplay = document.getElementById('status');
-const restartButton = document.getElementById('restart-button');
-const whiteCapturedList = document.getElementById('white-captured-list');
-const blackCapturedList = document.getElementById('black-captured-list');
+const colors = ['#FF5722', '#FFC107', '#FFEB3B', '#4CAF50', '#2196F3', '#9C27B0'];
+let cards = [...colors, ...colors]; // array of color pairs
 
-let board = [];
-let selectedCell = null;
-let currentPlayer = 'white';
-let whiteCapturedPieces = [];
-let blackCapturedPieces = [];
-let whiteKingPosition = { row: 7, col: 4 };
-let blackKingPosition = { row: 0, col: 4 };
+let flippedCards = [];
+let matchedCards = [];
 
-const pieces = {
-    'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
-    'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
-};
-
-// Initialisation du tableau de jeu
-function initializeBoard() {
-    const initialBoard = [
-        ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-        ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-        ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-    ];
-    board = initialBoard.map(row => row.slice());
-    renderBoard();
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
-function renderBoard() {
-    chessBoard.innerHTML = '';
-    for (let row = 0; row < 8; row++) {
-        for (let col = 0; col < 8; col++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
-            cell.setAttribute('data-row', row);
-            cell.setAttribute('data-col', col);
-            cell.textContent = pieces[board[row][col]] || '';
-            cell.addEventListener('click', handleCellClick);
-            chessBoard.appendChild(cell);
+function createBoard() {
+    shuffle(cards);
+    const board = document.getElementById('board');
+
+    cards.forEach(color => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="front-face">${color}</div>
+            <div class="back-face"></div>
+        `;
+        card.addEventListener('click', () => flipCard(card));
+        board.appendChild(card);
+    });
+}
+
+function flipCard(card) {
+    if (flippedCards.length < 2 && !flippedCards.includes(card)) {
+        card.classList.add('flipped');
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+            setTimeout(checkForMatch, 1000);
         }
     }
 }
 
-function handleCellClick(event) {
-    const cell = event.target;
-    const row = parseInt(cell.getAttribute('data-row'));
-    const col = parseInt(cell.getAttribute('data-col'));
-    if (selectedCell) {
-        const fromRow = parseInt(selectedCell.getAttribute('data-row'));
-        const fromCol = parseInt(selectedCell.getAttribute('data-col'));
-        if (isValidMove(fromRow, fromCol, row, col)) {
-            movePiece(fromRow, fromCol, row, col);
+function checkForMatch() {
+    const [card1, card2] = flippedCards;
 
-            // Check for check and checkmate
-            if (isCheck(currentPlayer)) {
-                if (isCheckmate(currentPlayer)) {
-                    statusDisplay.textContent = `Échec et mat. ${currentPlayer === 'white' ? 'Noir' : 'Blanc'} a gagné !`;
-                    return;
-                } else {
-                    statusDisplay.textContent = `Échec pour ${currentPlayer === 'white' ? 'Blanc' : 'Noir'}`;
-                }
-            } else {
-                statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'white' ? 'Blanc' : 'Noir'}`;
-            }
+    if (card1.querySelector('.front-face').textContent === card2.querySelector('.front-face').textContent) {
+        matchedCards.push(card1, card2);
+        flippedCards = [];
 
-            switchPlayer();
+        if (matchedCards.length === cards.length) {
+            setTimeout(() => alert('Congratulations! You won the game!'), 500);
         }
-        selectedCell.classList.remove('selected');
-        selectedCell = null;
     } else {
-        if (board[row][col] && isPlayerPiece(board[row][col], currentPlayer)) {
-            selectedCell = cell;
-            selectedCell.classList.add('selected');
-        }
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            flippedCards = [];
+        }, 1000);
     }
 }
 
-function isPlayerPiece(piece, player) {
-    return (player === 'white' && piece === piece.toUpperCase()) || (player === 'black' && piece === piece.toLowerCase());
+function resetGame() {
+    flippedCards = [];
+    matchedCards = [];
+    document.getElementById('board').innerHTML = '';
+    createBoard();
 }
 
-function isValidMove(fromRow, fromCol, toRow, toCol) {
-    const piece = board[fromRow][fromCol].toLowerCase();
-    const playerPiece = board[fromRow][fromCol];
-    const targetPiece = board[toRow][toCol];
-    const isWhitePiece = playerPiece === playerPiece.toUpperCase();
-    const direction = isWhitePiece ? -1 : 1;
-
-    if (targetPiece && isPlayerPiece(targetPiece, currentPlayer)) {
-        return false;
-    }
-
-    switch (piece) {
-        case 'p':
-            if (fromCol === toCol && board[toRow][toCol] === '') {
-                if (toRow === fromRow + direction) return true;
-                if ((isWhitePiece && fromRow === 6 || !isWhitePiece && fromRow === 1) && toRow === fromRow + 2 * direction && board[fromRow + direction][fromCol] === '') return true;
-            }
-            if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + direction && board[toRow][toCol] !== '' && !isPlayerPiece(board[toRow][toCol], currentPlayer)) return true;
-            break;
-        case 'r':
-            if (fromRow === toRow || fromCol === toCol) return !isPathBlocked(fromRow, fromCol, toRow, toCol);
-            break;
-        case 'n':
-            if (Math.abs(fromRow - toRow) === 2 && Math.abs(fromCol - toCol) === 1 || Math.abs(fromRow - toRow) === 1 && Math.abs(fromCol - toCol) === 2) return true;
-            break;
-        case 'b':
-            if (Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return !isPathBlocked(fromRow, fromCol, toRow, toCol);
-            break;
-        case 'q':
-            if (fromRow === toRow || fromCol === toCol || Math.abs(fromRow - toRow) === Math.abs(fromCol - toCol)) return !isPathBlocked(fromRow, fromCol, toRow, toCol);
-            break;
-        case 'k':
-            if (Math.abs(fromRow - toRow) <= 1 && Math.abs(fromCol - toCol) <= 1) return true;
-            break;
-    }
-    return false;
-}
-
-function isPathBlocked(fromRow, fromCol, toRow, toCol) {
-    const rowIncrement = Math.sign(toRow - fromRow);
-    const colIncrement = Math.sign(toCol - fromCol);
-    let r = fromRow + rowIncrement;
-    let c = fromCol + colIncrement;
-    while (r !== toRow || c !== toCol) {
-        if (board[r][c] !== '') return true;
-        r += rowIncrement;
-        c += colIncrement;
-    }
-    return false;
-}
-
-function handleRestartGame() {
-    initializeBoard();
-    currentPlayer = 'white';
-    whiteCapturedPieces = [];
-    blackCapturedPieces = [];
-    whiteKingPosition = { row: 7, col: 4 };
-    blackKingPosition = { row: 0, col: 4 };
-    statusDisplay.textContent = `C'est au tour de Blanc`;
-    renderCapturedPieces();
-}
-
-// Initialisation du jeu au chargement de la page
-initializeBoard();
-statusDisplay.textContent = `C'est au tour de Blanc`;
-restartButton.addEventListener('click', handleRestartGame);
+createBoard();

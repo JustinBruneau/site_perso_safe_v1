@@ -1,75 +1,55 @@
 body {
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
 
-#game-container {
+.memory-game {
     text-align: center;
-    margin-top: 20px;
 }
 
-#captured-lists {
+.board {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    flex-wrap: wrap;
+    width: 300px;
+    margin: 20px auto;
+    perspective: 1000px;
 }
 
-#captured-lists ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0 10px;
-}
-
-#captured-lists ul li {
-    margin-bottom: 5px;
-}
-
-#captured-lists ul li.strikethrough {
-    text-decoration: line-through;
-}
-
-#chess-board {
-    display: grid;
-    grid-template-columns: repeat(8, 60px);
-    grid-template-rows: repeat(8, 60px);
-    border: 2px solid #333;
-    margin-bottom: 10px;
-}
-
-.cell {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
+.card {
+    width: calc(33.33% - 10px);
+    height: 100px;
+    margin: 5px;
+    background-color: #2196F3;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
     cursor: pointer;
 }
 
-.cell.white {
-    background-color: #f0d9b5;
+.card.flipped {
+    transform: rotateY(180deg);
 }
 
-.cell.black {
-    background-color: #b58863;
+.front-face, .back-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
 }
 
-.cell.selected {
-    border: 2px solid #ff0000;
-    box-sizing: border-box;
+.front-face {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#status {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-#restart-button {
-    font-size: 1em;
-    padding: 10px 20px;
+.back-face {
+    background-color: #f44336;
+    transform: rotateY(180deg);
 }
