@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bombe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="bomb-container">
+        <div id="bomb">
+            <div id="timer">15</div>
+            <div id="wires">
+                <button class="wire" id="red-wire" onclick="cutWire('red')">Fil Rouge</button>
+                <button class="wire" id="green-wire" onclick="cutWire('green')">Fil Vert</button>
+                <button class="wire" id="yellow-wire" onclick="cutWire('yellow')">Fil Jaune</button>
+                <button class="wire" id="blue-wire" onclick="cutWire('blue')">Fil Bleu</button>
+                <button class="wire" id="white-wire" onclick="cutWire('white')">Fil Blanc</button>
+                <button class="wire" id="black-wire" onclick="cutWire('black')">Fil Noir</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
