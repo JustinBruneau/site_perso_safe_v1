@@ -3,6 +3,10 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-image: url('./images/background.webp');
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    background-size: cover; /* Pour couvrir toute la zone */
+
 }
 
 .container {

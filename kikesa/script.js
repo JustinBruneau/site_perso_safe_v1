@@ -67,7 +67,7 @@ function loadSong(song) {
     title.textContent = song.displayName;
     artist.textContent = song.artist;
     music.src = `music/${song.name}.mp3`;
-    image.src = `img/${song.name}.jpg`;
+    image.src = `images/${song.name}.jpg`;
 }
 
 // On load: Select first song randomly
