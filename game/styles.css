@@ -1,14 +1,19 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
+
 }
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #ffffff
+    background: #ffffff;
+    background-image: url('./images/background.jpg');
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Centrer l'image */
 }
 .face{
     position: relative;
@@ -73,7 +78,7 @@ body{
 
 .titre{
     font-size: 30px;
-    color: black;
+    color: white;
 
 }
 

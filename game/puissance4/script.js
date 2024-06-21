@@ -50,7 +50,7 @@ function handleCellClick(event) {
                 gameActive = false;
             } else {
                 currentPlayer = currentPlayer === 'red' ? 'yellow' : 'red';
-                statusDisplay.textContent = `C'est au tour de ${currentPlayer === 'red' ? 'rouge' : 'jaune'}`;
+                statusDisplay.textContent = `C'est au tour du ${currentPlayer === 'red' ? 'rouge' : 'jaune'}`;
             }
             break;
         }
@@ -84,9 +84,9 @@ function handleRestartGame() {
     createBoard();
     currentPlayer = 'red';
     gameActive = true;
-    statusDisplay.textContent = `C'est au tour de rouge`;
+    statusDisplay.textContent = `C'est au tour du rouge`;
 }
 
 createBoard();
-statusDisplay.textContent = `C'est au tour de rouge`;
+statusDisplay.textContent = `C'est au tour du rouge`;
 restartButton.addEventListener('click', handleRestartGame);

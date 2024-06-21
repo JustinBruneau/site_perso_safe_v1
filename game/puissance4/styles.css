@@ -6,6 +6,10 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+    background-image: url('./images/background.jpg');
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Centrer l'image */
 }
 
 #game-container {
@@ -67,6 +71,10 @@ body {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   }
   
-  .button:hover {
+.button:hover {
     background-color: #ff6f42;
-  }
+}
+
+.color{
+    color: white;
+}
