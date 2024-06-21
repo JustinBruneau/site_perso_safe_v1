@@ -7,18 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="button" onclick="window.location.href='../index.html'">RETOUR</button>
-    <div id="gameContainer">
-        <div id="gameArea">
-            <canvas id="gameCanvas"></canvas>
-            <canvas id="nextPieceCanvas"></canvas>
-        </div>
-        <div id="scoreContainer">
-            <div>Score : <span id="score">0</span></div>
-            <button id="restartButton">Recommencer</button>
-            <div id="gameOverMessage">Partie terminée ! <span id="finalScore"></span></div>
-        </div>
+    <div class="background-container">
     </div>
-    <script src="script.js"></script>
+        <button class="button" onclick="window.location.href='../index.html'">RETOUR</button>
+        <div id="gameContainer">
+            
+            <div id="gameArea">
+                <canvas id="gameCanvas"></canvas>
+                <canvas id="nextPieceCanvas"></canvas>
+            </div>
+            <div id="scoreContainer">
+                <div>Score : <span id="score">0</span></div>
+                <button id="restartButton">Recommencer</button>
+                <div id="gameOverMessage">
+                    
+                    Partie terminée ! <span id="finalScore"></span>
+                </div>
+                <div id="gifContainer"></div> <!-- Conteneur GIF déplacé ici -->
+            </div>
+        </div>
+        <script src="script.js"></script>
+    
 </body>
 </html>

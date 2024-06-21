@@ -6,6 +6,7 @@ const restartButton = document.getElementById('restartButton');
 const scoreElement = document.getElementById('score');
 const gameOverMessage = document.getElementById('gameOverMessage');
 const finalScoreElement = document.getElementById('finalScore');
+const gifContainer = document.getElementById('gifContainer'); // Conteneur pour le GIF
 
 // Constants
 const COLS = 10;
@@ -185,6 +186,20 @@ function endGame() {
     clearInterval(gameInterval);
     gameOverMessage.style.display = 'block';
     finalScoreElement.textContent = `Score final: ${score}`;
+
+    // Display appropriate GIF based on score
+    let gifSrc = '';
+    if (score <= 100) {
+        gifSrc = './images/100.gif';
+    } else if (score <= 300) {
+        gifSrc = './images/300.gif';
+    } else if (score <= 500) {
+        gifSrc = './images/500.gif';
+    } else {
+        gifSrc = './images/fin.gif';
+    }
+    gifContainer.innerHTML = `<img src="${gifSrc}" alt="Score GIF">`;
+
     restartButton.disabled = false; // Activer le bouton "Recommencer"
 }
 
@@ -221,6 +236,7 @@ function startGame() {
     scoreElement.textContent = score; // Update score display
     gameOver = false; // Reset game over state
     gameOverMessage.style.display = 'none'; // Hide game over message
+    gifContainer.innerHTML = ''; // Clear the GIF
     if (gameInterval) {
         clearInterval(gameInterval);
     }

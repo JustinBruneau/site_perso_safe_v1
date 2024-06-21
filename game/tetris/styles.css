@@ -5,17 +5,25 @@ html, body {
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0;
+    background-image: url('./images/background.jpg');
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Centrer l'image */
 }
+
+
 
 #gameContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-between; /* Change to space-between */
+    align-items: flex-start; /* Align items to the start */
+    flex-direction: row; /* Change to row to align horizontally */
     background-color: #f8f8f8;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make the container take full width */
+    max-width: 1200px; /* Max width for the container */
 }
 
 #gameArea {
@@ -35,6 +43,7 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-left: 20px;
 }
 
 #restartButton {
@@ -65,8 +74,26 @@ canvas {
     margin: 10px;
     transition: background-color 0.3s ease;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-  }
+}
   
-  .button:hover {
+.button:hover {
     background-color: #ff6f42;
-  }
+}
+
+#gifContainer {
+    margin-top: 10px;
+    text-align: center;
+    flex: 1; /* Make it take the remaining space */
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center; /* Center vertically */
+}
+
+#gifContainer img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    max-height: 400px; /* Adjust the max height to fit the page */
+}
+
