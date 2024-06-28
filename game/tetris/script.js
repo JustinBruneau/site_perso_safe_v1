@@ -19,7 +19,7 @@ nextPieceCanvas.height = 4 * BLOCK_SIZE;
 
 // Colors
 const COLORS = [
-    'cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red'
+    'cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red', 'brown',
 ];
 
 // Tetromino shapes
@@ -30,7 +30,8 @@ const SHAPES = [
     [[1, 1], [1, 1]], // O
     [[0, 1, 1], [1, 1, 0]], // S
     [[1, 1, 1], [0, 1, 0]], // T
-    [[1, 1, 0], [0, 1, 1]] // Z
+    [[1, 1, 0], [0, 1, 1]], // Z
+    [[1, 0, 0]] // Z
 ];
 
 function drawBlock(x, y, color, ctx) {
