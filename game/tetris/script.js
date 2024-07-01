@@ -246,7 +246,7 @@ restartButton.addEventListener('click', () => {
 
 function saveScore(score) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'save_score.php', true);
+    xhr.open('POST', '/game/tetris/save_score.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -259,15 +259,16 @@ function saveScore(score) {
 
 function fetchTopScores() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'get_top_scores.php', true);
+    xhr.open('GET', '/game/tetris/get_top_scores.php', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             const topScores = JSON.parse(xhr.responseText);
             const topScoresList = document.getElementById('topScoresList');
             topScoresList.innerHTML = '';
-            topScores.forEach(score => {
+
+            topScores.forEach((score, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${score.username}: ${score.score}`;
+                li.textContent = `${index + 1}. ${score.username}: ${score.score}`;
                 topScoresList.appendChild(li);
             });
         }

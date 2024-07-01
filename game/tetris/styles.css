@@ -6,24 +6,69 @@ html, body {
     align-items: center;
     background-color: #f0f0f0;
     background-image: url('./images/background.jpg');
-    background-repeat: no-repeat; /* Ne pas répéter l'image */
-    background-size: cover; /* Pour couvrir toute la zone */
-    background-position: center; /* Centrer l'image */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
+#usernamePrompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 10;
+}
 
+#usernamePrompt form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#usernamePrompt input {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#topScores {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+#topScoresList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#topScoresList li {
+    margin-bottom: 5px;
+}
 
 #gameContainer {
     display: flex;
-    justify-content: space-between; /* Change to space-between */
-    align-items: flex-start; /* Align items to the start */
-    flex-direction: row; /* Change to row to align horizontally */
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
     background-color: #f8f8f8;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Make the container take full width */
-    max-width: 1200px; /* Max width for the container */
+    width: 100%;
+    max-width: 1200px;
 }
 
 #gameArea {
@@ -83,10 +128,10 @@ canvas {
 #gifContainer {
     margin-top: 10px;
     text-align: center;
-    flex: 1; /* Make it take the remaining space */
+    flex: 1;
     display: flex;
-    justify-content: flex-start; /* Align items to the left */
-    align-items: center; /* Center vertically */
+    justify-content: flex-start;
+    align-items: center;
 }
 
 #gifContainer img {
@@ -94,48 +139,5 @@ canvas {
     height: auto;
     border: 2px solid #ccc;
     border-radius: 8px;
-    max-height: 400px; /* Adjust the max height to fit the page */
-}
-/* Ajoutez ou mettez à jour ces styles */
-
-#usernamePrompt {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    z-index: 10;
-}
-
-#usernamePrompt form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#usernamePrompt input {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-}
-
-/* Styles restants pour le jeu et les scores */
-#gameContainer {
-    display: none;
-    /* autres styles */
-}
-
-#topScores {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
+    max-height: 400px;
 }
