@@ -278,7 +278,7 @@ function fetchTopScores() {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('usernamePrompt').style.display = 'block';
     document.getElementById('gameContainer').style.display = 'none';
-    document.getElementById('usernamePrompt').addEventListener('submit', (e) => {
+    document.querySelector('#usernamePrompt form').addEventListener('submit', (e) => {
         e.preventDefault();
         username = document.getElementById('username').value;
         if (username) {

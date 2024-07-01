@@ -8,9 +8,11 @@
 </head>
 <body>
     <div id="usernamePrompt">
-        <label for="username">Entrez votre pseudo :</label>
-        <input type="text" id="username" required>
-        <button onclick="startGame()">Commencer le jeu</button>
+        <form id="usernameForm">
+            <label for="username">Entrez votre pseudo :</label>
+            <input type="text" id="username" required>
+            <button type="submit">Commencer le jeu</button>
+        </form>
     </div>
     <div id="topScores">
         <h2>Top 10 Scores</h2>
