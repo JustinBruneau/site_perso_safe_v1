@@ -1,3 +1,8 @@
+let username = '';
+let gameInterval;
+let score = 0;
+let gameOver = false;
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const nextPieceCanvas = document.getElementById('nextPieceCanvas');
@@ -6,9 +11,8 @@ const restartButton = document.getElementById('restartButton');
 const scoreElement = document.getElementById('score');
 const gameOverMessage = document.getElementById('gameOverMessage');
 const finalScoreElement = document.getElementById('finalScore');
-const gifContainer = document.getElementById('gifContainer'); // Conteneur pour le GIF
+const gifContainer = document.getElementById('gifContainer');
 
-// Constants
 const COLS = 10;
 const ROWS = 20;
 const BLOCK_SIZE = 30;
@@ -17,12 +21,7 @@ canvas.height = ROWS * BLOCK_SIZE;
 nextPieceCanvas.width = 4 * BLOCK_SIZE;
 nextPieceCanvas.height = 4 * BLOCK_SIZE;
 
-// Colors
-const COLORS = [
-    'cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red', 'brown',
-];
-
-// Tetromino shapes
+const COLORS = ['cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red', 'brown'];
 const SHAPES = [
     [[1, 1, 1, 1]], // I
     [[1, 1, 1], [0, 0, 1]], // J
@@ -31,7 +30,6 @@ const SHAPES = [
     [[0, 1, 1], [1, 1, 0]], // S
     [[1, 1, 1], [0, 1, 0]], // T
     [[1, 1, 0], [0, 1, 1]], // Z
-    [[1, 0, 0]] // Z
 ];
 
 function drawBlock(x, y, color, ctx) {
@@ -39,14 +37,6 @@ function drawBlock(x, y, color, ctx) {
     ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
 }
-
-// Game variables
-let board;
-let currentPiece;
-let nextPiece;
-let gameInterval;
-let score = 0;
-let gameOver = false;
 
 function getRandomPiece() {
     const typeId = Math.floor(Math.random() * SHAPES.length);
@@ -96,7 +86,7 @@ function drawNextPiece(piece) {
 function collide(board, piece) {
     for (let y = 0; y < piece.shape.length; y++) {
         for (let x = 0; x < piece.shape[y].length; x++) {
-            if (piece.shape[y][x] &&
+            if (piece.shape[y][x] && 
                 (board[y + piece.y] && board[y + piece.y][x + piece.x]) !== 0) {
                 return true;
             }
@@ -130,7 +120,7 @@ function removeFullLines() {
 }
 
 function updateScore(linesCleared) {
-    score += linesCleared * 100; // Increase score based on lines cleared
+    score += linesCleared * 100;
     scoreElement.textContent = score;
 }
 
@@ -152,7 +142,6 @@ function rotatePiece(piece) {
     if (!collide(board, { ...piece, shape: newShape })) {
         piece.shape = newShape;
     } else {
-        // Try moving piece left/right to see if it can rotate
         for (let offset = 1; offset <= 2; offset++) {
             piece.x += offset;
             if (!collide(board, { ...piece, shape: newShape })) {
@@ -187,8 +176,8 @@ function endGame() {
     clearInterval(gameInterval);
     gameOverMessage.style.display = 'block';
     finalScoreElement.textContent = `Score final: ${score}`;
+    saveScore(score);
 
-    // Display appropriate GIF based on score
     let gifSrc = '';
     if (score <= 100) {
         gifSrc = './images/100.gif';
@@ -201,7 +190,33 @@ function endGame() {
     }
     gifContainer.innerHTML = `<img src="${gifSrc}" alt="Score GIF">`;
 
-    restartButton.disabled = false; // Activer le bouton "Recommencer"
+    restartButton.disabled = false;
+}
+
+function startGame() {
+    board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+    currentPiece = getRandomPiece();
+    nextPiece = getRandomPiece();
+    score = 0;
+    scoreElement.textContent = score;
+    gameOver = false;
+    gameOverMessage.style.display = 'none';
+    gifContainer.innerHTML = '';
+    if (gameInterval) {
+        clearInterval(gameInterval);
+    }
+    drawBoard();
+    drawPiece(currentPiece, ctx);
+    drawNextPiece(nextPiece);
+    gameInterval = setInterval(gameLoop, 1000);
+}
+
+function gameLoop() {
+    if (!gameOver) {
+        drawBoard();
+        drawPiece(currentPiece, ctx);
+        dropPiece();
+    }
 }
 
 document.addEventListener('keydown', (e) => {
@@ -229,31 +244,50 @@ restartButton.addEventListener('click', () => {
     startGame();
 });
 
-function startGame() {
-    board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
-    currentPiece = getRandomPiece();
-    nextPiece = getRandomPiece();
-    score = 0; // Reset score
-    scoreElement.textContent = score; // Update score display
-    gameOver = false; // Reset game over state
-    gameOverMessage.style.display = 'none'; // Hide game over message
-    gifContainer.innerHTML = ''; // Clear the GIF
-    if (gameInterval) {
-        clearInterval(gameInterval);
-    }
-    drawBoard();
-    drawPiece(currentPiece, ctx);
-    drawNextPiece(nextPiece);
-    gameInterval = setInterval(gameLoop, 1000);
+function saveScore(score) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'save_score.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            fetchTopScores();
+        }
+    };
+    xhr.send(`username=${username}&score=${score}`);
 }
 
-function gameLoop() {
-    if (!gameOver) {
-        drawBoard();
-        drawPiece(currentPiece, ctx);
-        dropPiece();
-    }
+function fetchTopScores() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'get_top_scores.php', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const topScores = JSON.parse(xhr.responseText);
+            const topScoresList = document.getElementById('topScoresList');
+            topScoresList.innerHTML = '';
+            topScores.forEach(score => {
+                const li = document.createElement('li');
+                li.textContent = `${score.username}: ${score.score}`;
+                topScoresList.appendChild(li);
+            });
+        }
+    };
+    xhr.send();
 }
 
-// Start the game for the first time
-startGame();
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('usernamePrompt').style.display = 'block';
+    document.getElementById('gameContainer').style.display = 'none';
+    document.getElementById('usernamePrompt').addEventListener('submit', (e) => {
+        e.preventDefault();
+        username = document.getElementById('username').value;
+        if (username) {
+            document.getElementById('usernamePrompt').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'flex';
+            startGame();
+        } else {
+            alert('Veuillez entrer un pseudo');
+        }
+    });
+    fetchTopScores();
+});

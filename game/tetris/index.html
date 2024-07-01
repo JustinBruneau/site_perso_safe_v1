@@ -7,26 +7,31 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="background-container">
+    <div id="usernamePrompt">
+        <label for="username">Entrez votre pseudo :</label>
+        <input type="text" id="username" required>
+        <button onclick="startGame()">Commencer le jeu</button>
     </div>
-        <button class="button" onclick="window.location.href='../index.html'">RETOUR</button>
-        <div id="gameContainer">
-            
-            <div id="gameArea">
-                <canvas id="gameCanvas"></canvas>
-                <canvas id="nextPieceCanvas"></canvas>
-            </div>
-            <div id="scoreContainer">
-                <div>Score : <span id="score">0</span></div>
-                <button id="restartButton">Recommencer</button>
-                <div id="gameOverMessage">
-                    
-                    Partie terminée ! <span id="finalScore"></span>
-                </div>
-                <div id="gifContainer"></div> <!-- Conteneur GIF déplacé ici -->
-            </div>
+    <div id="topScores">
+        <h2>Top 10 Scores</h2>
+        <ul id="topScoresList"></ul>
+    </div>
+    <div class="background-container"></div>
+    <button class="button" onclick="window.location.href='../index.html'">RETOUR</button>
+    <div id="gameContainer">
+        <div id="gameArea">
+            <canvas id="gameCanvas"></canvas>
+            <canvas id="nextPieceCanvas"></canvas>
         </div>
-        <script src="script.js"></script>
-    
+        <div id="scoreContainer">
+            <div>Score : <span id="score">0</span></div>
+            <button id="restartButton" disabled>Recommencer</button>
+            <div id="gameOverMessage" style="display:none;">
+                Partie terminée ! <span id="finalScore"></span>
+            </div>
+            <div id="gifContainer"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
