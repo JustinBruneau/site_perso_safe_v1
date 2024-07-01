@@ -1,0 +1,149 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-image: url('https://www.solarsystemscope.com/textures/download/8k_stars_milky_way.jpg');
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: green;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.score, .lives, .level {
+    position: absolute;
+    font-size: 20px;
+}
+
+.score {
+    top: 10px;
+    left: 10px;
+}
+
+.lives {
+    top: 10px;
+    right: 10px;
+}
+
+.level {
+    top: 50px;
+    left: 10px;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(25, 30px);
+    gap: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+}
+
+.ship {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid blue;
+    background-color: transparent;
+}
+
+.invader {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid red;
+    background-color: transparent;
+}
+
+.laser {
+    background-color: yellow;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+.enemy-laser {
+    background-color: orange;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+}
+
+.bonus {
+    background-color: blue;
+    border-radius: 50%;
+    position: absolute;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+#game-over h2 {
+    font-size: 50px;
+    margin: 0;
+}
+
+#game-over p {
+    font-size: 30px;
+}
+
+.controls {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+.controls h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.controls p {
+    margin: 5px 0;
+}
