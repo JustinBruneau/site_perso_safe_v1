@@ -14,6 +14,7 @@
 <script>window.onload = function() {$('#grille').PhpSudo({'TailleCasePX':'25', 'Dimension':'4*2','AfficheSelectionGrilles':true,'AfficherLaGrille':false,"TailleTexte": "18","GenererNouvelleGrille":'true'});};</script>
 </head>
 <body>
+	<p>Génerer votre grille :</p>
 	<div id="grille" style="min-height:200px;"></div>
 </body>
 </html>

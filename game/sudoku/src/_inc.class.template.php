@@ -81,10 +81,10 @@ class template
     {
         $this->AddTemplate($TPL);  
         // On vérifie que le bloc existe dans le fichier template
-        if (preg_match('<!--'.$bloc.'-->', $this->Container) and preg_match('<!--/'.$bloc.'-->', $this->Container)) { 
+        if (preg_match('/<!--'.$bloc.'-->/', $this->Container) and preg_match('/<!--\/'.$bloc.'-->/', $this->Container)) { 
             $pattern = '/<!--' . preg_quote($bloc, '/') . '-->(.*?)<!--\/' . preg_quote($bloc, '/') . '-->/s';
             if (preg_match($pattern, $this->Container, $contenu_bloc_tableau)) {
-                $contenu_bloc = $contenu_bloc_tableau[0];
+                $contenu_bloc = $contenu_bloc_tableau[1];
                 // $contenu_bloc contient la correspondance complète
             } else {
                 // Le motif n'a pas été trouvé
@@ -95,7 +95,7 @@ class template
             deux tableaux associatifs distincts */
             foreach ($array as $key => $val) {
                 // On vérifie à chaque fois que la variable se trouve bien dans dans l'array
-                if (preg_match($this->ajouteAccolade($key), $this->Container)) {
+                if (preg_match('/'.preg_quote($this->ajouteAccolade($key), '/').'/', $this->Container)) {
                     $cle[$i] = $this->ajouteAccolade($key);
                     $valeur[$i] = $val;
                     $i++;
@@ -112,7 +112,7 @@ class template
                 $this->blocs[$bloc] = $bloc_final;
             }
         } else if ($this->mode == 'debug') {
-            echo 'ERREUR bloc. Le bloc "'.$bloc.'" n\'existe pas sur le fichier template : '.$file;
+            echo 'ERREUR bloc. Le bloc "'.$bloc.'" n\'existe pas sur le fichier template : '.$TPL;
             die();
         }
     } 

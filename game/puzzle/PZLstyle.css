@@ -1,0 +1,58 @@
+/* style du body */
+.fond { background-color: #FF9; }
+.fondChoix { background-color: #FC9; }
+.fondBravo { background-color: #9F9; }
+
+/* style de l'image entiere */
+.vignette { position: fixed; }
+
+/* styles du chronometre en haut à droite */
+#chrono {
+	position: fixed;
+	top: 2px;
+	right: 0px;
+	left: 0px;
+	color: gray;
+	font-family: monospace;
+	text-align: center;
+}
+
+/* styles des informations ligne un */
+#info { font-style: italic; }
+.bravo { color: red; }
+.titre { color: maroon; }
+
+.score {
+	color: gray;
+	font-family: monospace;
+	font-weight: bold;
+}
+
+/* styles du nom et des boutons dans la liste des puzzles */
+.blocNom {
+	width: 15ex;
+	display: inline-block;
+	text-align: right;
+	color: maroon;
+}
+
+button {
+	background-color: transparent;
+	color: maroon;
+	font-weight: bold;
+	margin: 5px;
+}
+
+/* styles de la zone de drop */
+.cellule {
+	position: fixed;
+	border: 1px gray dotted;
+}
+
+.survol { background-color: yellow; }
+
+/* styles de la zone de drag */
+.pieceImage {
+	cursor: move;
+	position: fixed;
+}

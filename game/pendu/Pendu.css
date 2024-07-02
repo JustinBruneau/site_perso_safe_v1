@@ -1,0 +1,102 @@
+body { min-width: 800px; }
+
+/* Style du Titre */
+h1 {
+	text-align: center;
+	font-style: italic;
+	margin: 0px;
+}
+
+/* Style des ŽlŽments de contr™le du jeu */
+#jeu {
+	font-family: monospace;
+	font-size: 64px;
+	color: navy;
+}
+
+.jeu { padding: 0px; }
+
+/* Style de la <div> contenant l'image du pendu */
+.pendu {
+	margin: 5px;
+	text-align: center;
+}
+
+/* Style de la <div> contenant l'alphabet */
+#alpha {
+	padding: 0px;
+	text-align: center;
+}
+
+.alpha {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+/* Style du bouton de contr™le de partie */
+#controle { text-align: right; }
+
+/* Style de l'aide */
+fieldset {
+	position: absolute;
+	border: 1px maroon solid;
+	padding: 5px;
+	background-color: white;
+	top: 40px;
+	left: 40px;
+	text-align: center;
+}
+
+legend {
+	border: 1px maroon solid;
+	padding: 1px 2px 1px 2px;
+	background-color: white;
+}
+
+/* Style de la position de lacase ˆ cocher du dŽbug */
+.debug {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+}
+
+#btnaide {
+	position: fixed;
+	left: 5px;
+	top: 5px;
+}
+
+/* Style de la <div> contenant la console de sortie */
+#console {
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+
+/* Styles de modification dynamique */
+.invisible { visibility: hidden; }
+
+.bravo {
+	color: green;
+	font-size: x-large;
+	font-style: italic;
+}
+
+.perdu {
+	color: navy;
+	font-size: x-large;
+	font-style: italic;
+}
+
+#jeu {
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+}
+
+.w3c {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+}
