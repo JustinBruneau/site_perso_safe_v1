@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-$sql = "SELECT username, score FROM scores ORDER BY score DESC LIMIT 10";
+$sql = "SELECT username, score FROM scores ORDER BY score DESC LIMIT 20";
 $result = $conn->query($sql);
 
 $top_scores = array();

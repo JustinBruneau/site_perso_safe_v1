@@ -501,7 +501,7 @@ addArcherTowerButton.addEventListener('click', () => {
 
 // Add Ice Tower
 addIceTowerButton.addEventListener('click', () => {
-    if (resources >= 50) {
+    if (resources >= 30) {
         isPlacingTower = true;
         placingTowerType = 'ice';
     }

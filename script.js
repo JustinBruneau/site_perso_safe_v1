@@ -1,13 +1,18 @@
-document.querySelector("body").addEventListener("mousemove", eyeball);
-
-function eyeball() {
-    'use strict';
-    var eye = document.querySelectorAll(".eye");
-    eye.forEach(function (eye) {
-        let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2)
-        let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
-        let radian = Math.atan2(event.pageX - x, event.pageY - y);
-        let rot = (radian * (180 / Math.PI) * -1) + 270;
-        eye.style.transform  = "rotate("+ rot +"deg)"
-    })
-}
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const passwordInput = document.getElementById('password').value;
+    
+    // Mot de passe chiffré à comparer
+    const hashedPassword = '3da7c384394875508da44eac15a9395c921f8c06666f170b2cd5944cf31aa619';
+    
+    // Chiffrer le mot de passe entré par l'utilisateur
+    const userHashedPassword = CryptoJS.SHA256(passwordInput).toString();
+    
+    // Comparer les deux mots de passe chiffrés
+    if (userHashedPassword === hashedPassword) {
+        localStorage.setItem('authenticated', 'true');
+        window.location.href = 'accueil.html';
+    } else {
+        alert('Mot de passe incorrect');
+    }
+});
