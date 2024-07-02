@@ -1,0 +1,86 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./images/background.jpg');
+    background-repeat: no-repeat; /* Ne pas répéter l'image */
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Centrer l'image */
+    
+}
+
+.container {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #f4511e;
+    padding: 15px 25px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.2);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #ff6f42;
+    transform: translateY(-3px);
+}
+
+.btn:active {
+    background-color: #ff6f42;
+    transform: translateY(1px);
+    box-shadow: 0 3px 5px rgba(0, 63, 127, 0.2);
+}
+
+@media (max-width: 600px) {
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+.button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f4511e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button:hover {
+    background-color: #ff6f42;
+  }
+
+  

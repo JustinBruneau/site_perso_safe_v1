@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="usernamePrompt">
+        <form id="usernameForm">
+            <label for="username">Entrez votre pseudo :</label>
+            <input type="text" id="username" required>
+            <button type="submit">Commencer le jeu</button>
+        </form>
+    </div>
+    <div id="topScores">
+        <h2>Top 20 Scores</h2>
+        <ul id="topScoresList"></ul>
+    </div>
+    <div class="background-container"></div>
+    <button class="button" onclick="window.location.href='../index.html'">RETOUR</button>
+    <div id="gameContainer">
+        <div id="gameArea">
+            <canvas id="gameCanvas"></canvas>
+            <canvas id="nextPieceCanvas"></canvas>
+        </div>
+        <div id="scoreContainer">
+            <div>Score : <span id="score">0</span></div>
+            <button id="restartButton" disabled>Recommencer</button>
+            <div id="gameOverMessage" style="display:none;">
+                Partie terminée ! <span id="finalScore"></span>
+            </div>
+            <div id="gifContainer"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
