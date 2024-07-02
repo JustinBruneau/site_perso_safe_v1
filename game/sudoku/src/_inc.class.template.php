@@ -42,7 +42,7 @@ class template
     {
         if ($this->Container == '') {
             $this->AddTemplate($TPL);
-        } // Si on le fichier est déjà chargé
+        } // Si le fichier est déjà chargé
 
         $fin_bloc = array_keys($this->blocs);
         $i = 0;

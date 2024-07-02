@@ -77,7 +77,7 @@ Niveau :
 	</td>
 	</tr>
 		<tr>
-	<td colspan="3"><div><a href="http://nlion.online.fr/" target="_blank" style="color:#333;font-family:verdana;font-size:10px;text-decoration:none;">Code source nlion.online.fr<!-- Merci de laisser un lien vers mon site --></a></div></td>
+	<td colspan="3"><div><a href="http://nlion.online.fr/" target="_blank" style="color:#333;font-family:verdana;font-size:10px;text-decoration:none;"><!-- Merci de laisser un lien vers mon site --></a></div></td>
 	</tr>
     </table>
 </div>
