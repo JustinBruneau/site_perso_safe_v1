@@ -182,13 +182,13 @@ main {
         font-size: 16px;
     }
     .pdf-container {
-        width: 40%;
+        width: 45%;
         height: 100px;
 
     }
     
     .pdf-container iframe {
-        width: 40%;
+        width: 45%;
         height: 100px;
 
     }
