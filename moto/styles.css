@@ -5,10 +5,6 @@ body, html {
     font-family: Arial, sans-serif;
     background-color: #add8e6;
     z-index: -10;
-    background-image: url('./images/image.jpeg');
-    background-repeat: no-repeat; /* Ne pas répéter l'image */
-    background-size: cover; /* Pour couvrir toute la zone */
-    background-position: center; /* Centrer l'image */
 }
 
 .container {
