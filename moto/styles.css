@@ -184,16 +184,16 @@ main {
     .pdf-container {
         width: 50%;
         height: 100px;
-        margin-left: 5px;
+        margin-left: 2px;
     }
     
     .pdf-container iframe {
         width: 500%;
         height: 100px;
-        margin-left: 5px;
+        margin-left: 2px;
     }
     main {
         padding: 2rem;
-        margin-left: 5px;
+        margin-left: 2px;
     }
 }
