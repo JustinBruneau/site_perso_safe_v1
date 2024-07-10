@@ -110,6 +110,28 @@ main {
     text-decoration: underline;
 }
 
+.button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #474747;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.button:hover {
+    background-color: #000000;
+}
+
+
 @media (max-width: 768px) {
     .pdf-container iframe {
         height: 600px;
@@ -139,25 +161,22 @@ main {
         border: none;
         z-index: 1000;
     }
+    .button {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #474747;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+        margin-top: 30px;
+    }
 }
 
-.button {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #474747;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
-    z-index: 100;
-}
-
-.button:hover {
-    background-color: #000000;
-}
