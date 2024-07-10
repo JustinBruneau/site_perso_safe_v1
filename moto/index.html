@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="pdfjs/web/viewer.css">
     <link rel="stylesheet" href="./styles.css">
     <script src="pdfjs/build/pdf.js"></script>
-    <script src="pdfjs/build/pdf.worker.js"></script>
 </head>
 <body>
     <button class="button" onclick="window.location.href='../index.html'">ACCUEIL</button>
@@ -31,21 +30,51 @@
                 <section id="pdf-files">
                     <div class="pdf-container">
                         <h3 class="title-1">Les bases</h3>
-                        <iframe id="pdf-viewer-1" src="./pdf/debutant.pdf#view=FitH" width="100%" height="800px"></iframe>
+                        <div id="pdf-viewer-1" class="pdf-viewer"></div>
                     </div>
                     <div class="pdf-container">
-                        <h3 class="title-1">la bible</h3>
-                        <iframe id="pdf-viewer-2" src="./pdf/bible.pdf#view=FitH" width="100%" height="800px"></iframe>
+                        <h3 class="title-1">La Bible</h3>
+                        <div id="pdf-viewer-2" class="pdf-viewer"></div>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
+    <script src="pdfjs/web/viewer.js"></script>
     <script>
         function toggleSidebar() {
             document.querySelector('.sidebar').classList.toggle('active');
         }
+
+        // Fonction pour charger un PDF avec PDF.js
+        function loadPDF(pdfURL, containerId) {
+            const container = document.getElementById(containerId);
+            const loadingTask = pdfjsLib.getDocument(pdfURL);
+            loadingTask.promise.then(pdf => {
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    pdf.getPage(pageNum).then(page => {
+                        const viewport = page.getViewport({ scale: 1 });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        container.appendChild(canvas);
+
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                    });
+                }
+            });
+        }
+
+        // Charger les PDF
+        loadPDF('./pdf/debutant.pdf', 'pdf-viewer-1');
+        loadPDF('./pdf/bible.pdf', 'pdf-viewer-2');
     </script>
 </body>
 </html>

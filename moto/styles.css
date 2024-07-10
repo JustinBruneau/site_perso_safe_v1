@@ -100,9 +100,9 @@ main {
     align-items: center;
 }
 
-.pdf-container iframe {
-    width: 250%;
-    height: 800px;
+.pdf-viewer {
+    width: 100%;
+    height: auto;
     border: 1px solid #ccc;
 }
 
@@ -134,7 +134,7 @@ main {
 }
 
 @media (max-width: 768px) {
-    .pdf-container iframe {
+    .pdf-container .pdf-viewer {
         height: 500px;
     }
 }
@@ -186,7 +186,7 @@ main {
         margin-left: 0;
         margin-top: 60px;
     }
-    .pdf-container iframe {
+    .pdf-container .pdf-viewer {
         width: 100%;
         height: 400px;
     }
