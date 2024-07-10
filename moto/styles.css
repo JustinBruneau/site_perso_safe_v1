@@ -190,10 +190,8 @@ main {
     .pdf-container iframe {
         width: 500%;
         height: 100px;
-        margin-left: -50px;
     }
     main {
         padding: 2rem;
-        margin-left: -50px;
     }
 }
