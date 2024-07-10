@@ -183,13 +183,13 @@ main {
     }
     .pdf-container {
         width: 50%;
-        height: 100px;
+        height: 50px;
 
     }
     
     .pdf-container iframe {
         width: 500%;
-        height: 100px;
+        height: 50px;
 
     }
     main {
