@@ -62,7 +62,7 @@ h2 {
     height: 100vh;
 }
 
-.button {
+.button2 {
     position: fixed;
     top: 0;
     left: 0;
@@ -78,11 +78,11 @@ h2 {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   }
   
-  .button:hover {
+  .button2:hover {
     background-color: #ff6f42;
   }
 
-  
+
 /* Media queries pour les petits écrans (téléphones) */
 @media (max-width: 600px) {
     .buttons {
