@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Media queries for different screen sizes */
+        @media (max-width: 600px) {
+            .image-container img {
+                width: 90%;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .image-container img {
+                width: 45%;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .image-container img {
+                width: 30%;
+            }
+        }
+
+        .button2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #f4511e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .button2:hover {
+            background-color: #ff6f42;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="button2">Retour</a>
+    <div class="image-container" id="image-container">
+        <!-- Les images seront chargées ici par JavaScript -->
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const imageContainer = document.getElementById("image-container");
+            const images = [
+                // Ajoutez ici les noms des fichiers images situés dans le dossier ./images/
+                "./arbre-a-cames.jpg",
+                "./moteur.png",
+                // Ajoutez d'autres images selon vos besoins
+            ];
+
+            images.forEach(image => {
+                const imgElement = document.createElement("img");
+                imgElement.src = `./images/${image}`;
+                imageContainer.appendChild(imgElement);
+            });
+        });
+    </script>
+</body>
+</html>
