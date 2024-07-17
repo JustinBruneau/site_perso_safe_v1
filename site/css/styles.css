@@ -1,0 +1,132 @@
+/* styles.css */
+
+/* Styles généraux pour le corps */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Parallax Section */
+.parallax-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.parallax-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.info-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #ff0000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.info-button:hover {
+    background-color: #cc0000;
+}
+
+/* Styles pour la page des détails du film */
+.movie-details {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#movie-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.movie-info {
+    padding: 10px;
+}
+
+.movie-info h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.movie-info p {
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+/* Styles pour la bande-annonce */
+.movie-trailer {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+#movie-trailer {
+    width: 100%;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+}
+
+/* Styles pour le film complet */
+.full-movie {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#full-movie {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+}
+
+/* Styles pour le bouton de retour */
+.back-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #ff0000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.back-button:hover {
+    background-color: #cc0000;
+}
